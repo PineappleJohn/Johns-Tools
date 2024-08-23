@@ -12,21 +12,24 @@ public class AdvancedHitsound : EditorWindow
     }
     string soundTag;
     AudioClip sound;
-    private Object handR;
-    private Object handL;
+    private GameObject handR;
+    private GameObject handL;
 
+    public static Vector2 scrollPos;
     
     private void OnGUI()
     {
+        scrollPos = GUILayout.BeginScrollView(scrollPos, true, true);
         GUILayout.Label("Make a Soft-Chimp Loco hitsound!", EditorStyles.largeLabel);
         GUILayout.Space(15);
-        soundTag = EditorGUILayout.TextField(soundTag);
+        GUILayout.Label("Tag for sound");
+        soundTag = EditorGUILayout.TagField(soundTag);
         GUILayout.Space(5);
         sound = (AudioClip)EditorGUILayout.ObjectField(sound, typeof(AudioClip), false);
         GUILayout.Space(5);
-        GUILayout.Label("Offline R");
+        GUILayout.Label("Right Hand");
         handR = (GameObject)EditorGUILayout.ObjectField(handR, typeof(GameObject), true);
-        GUILayout.Label("Offline L");
+        GUILayout.Label("Left Hand");
         handL = (GameObject)EditorGUILayout.ObjectField(handL, typeof(GameObject), true);
         GUILayout.Space(5);
         if (GUILayout.Button("Make Hitsound"))
@@ -36,6 +39,8 @@ public class AdvancedHitsound : EditorWindow
 
         if (GUILayout.Button("Get the modified script"))
             Application.OpenURL("https://drive.google.com/file/d/14W376EBB6Jq1RsE2i7PDP7s31aXBTZPj/view?usp=sharing");
+
+        GUILayout.EndScrollView();
     }
 
     private void makeSound()
@@ -44,5 +49,7 @@ public class AdvancedHitsound : EditorWindow
         HitSoundsv2 offlineL = handL.GetComponentInChildren<HitSoundsv2>();
         offlineR.audioData.Add(new AudioData(sound, soundTag));
         offlineL.audioData = offlineR.audioData;
+        Selection.objects[0] = offlineR;
+        Selection.objects[1] = offlineL;
     }
 }

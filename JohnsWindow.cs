@@ -28,7 +28,7 @@ public class JohnsWindow : EditorWindow {
     void OnGUI()
     {
         scrollPos = GUILayout.BeginScrollView(scrollPos, false, true);
-        GUILayout.Label("John's tools, V1", EditorStyles.largeLabel); //scrollbar broken :(
+        GUILayout.Label("John's tools, V1.5", EditorStyles.largeLabel); //scrollbar broken :(
         GUILayout.Label("Made by john; Don't skid please");
         if (GUILayout.Button("Info"))
         {
@@ -101,7 +101,7 @@ public class JohnsWindow : EditorWindow {
                 }
             }
         }
-        GUILayout.Space(5);
+        GUILayout.Space(10);
         slipTag = EditorGUILayout.TagField(slipTag);
         if (GUILayout.Button("Make Object Slippery"))
         {
@@ -133,7 +133,7 @@ public class JohnsWindow : EditorWindow {
                     Debug.Log("This object doesn't have a collider!");
             }
         }
-        GUILayout.Space(5);
+        GUILayout.Space(10);
         if (GUILayout.Button("Make Objects Grabable"))
         {
             foreach (GameObject obj in Selection.gameObjects)
@@ -181,6 +181,17 @@ public class JohnsWindow : EditorWindow {
         {
             Application.OpenURL("https://www.youtube.com/@John-The-Dev");
         }
+        GUILayout.Space(5);
+        if (GUILayout.Button("Visit the GitHub"))
+        {
+            Application.OpenURL("https://github.com/PineappleJohn/Johns-Tools");
+        }
+        GUILayout.Space(5);
+        if (GUILayout.Button("Follow me on TikTok"))
+        {
+            Application.OpenURL("https://www.tiktok.com/@pineapple.john?is_from_webapp=1&sender_device=pc");
+        }
+
         GUILayout.EndScrollView();
     }
     public void ApplyMat(Renderer renderer, Object obj, Material mat)
