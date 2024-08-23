@@ -15,8 +15,10 @@ public class JohnsWindow : EditorWindow {
     AudioClip sound;
     private TagSound hitSound;
     bool hadMesh;
+    Material material;
     public static Vector2 scrollPos;
     private GameObject prefab1;
+    LayerMask lm;
 
     [MenuItem("Window/John's Tools")]
     [MenuItem("Tools/John's Tools")]
@@ -35,6 +37,8 @@ public class JohnsWindow : EditorWindow {
             var window = ScriptableObject.CreateInstance<InfoPage>();
             window.Show();
         }
+        GUILayout.Label("Non-walkable");
+        lm = EditorGUILayout.LayerField(lm);
         GUILayout.Space(10); //hitsounds
         GUILayout.Label("Easy Hitsounds (DEFAULT RIG)", EditorStyles.largeLabel);
         GUILayout.Space(5);
@@ -80,8 +84,11 @@ public class JohnsWindow : EditorWindow {
                     hadMesh = true;
                 else
                     hadMesh = false;
-                    if (obj)
+                if (obj)
+                {
                     obj.AddComponent<MonkeButton>();
+                    obj.GetComponent<Collider>().isTrigger = true;
+                }
                 
             }
         GUILayout.Space(5);
@@ -168,12 +175,52 @@ public class JohnsWindow : EditorWindow {
                 DestroyImmediate(obj.GetComponent<Rigidbody>());
             }
         }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Make objects disconnect you"))
+        {
+            foreach (GameObject obj in Selection.gameObjects)
+            {
+                if (lm != 0)
+                {
+                    obj.AddComponent<Disconnect>();
+                    obj.GetComponent<Collider>().isTrigger = true;
+                    obj.layer = lm;
+                }
+                else
+                    Debug.LogError("Non-Walkable is not set!");
+            }
+        }
+        GUILayout.Space(5);
+        if (GUILayout.Button("Remove disconnect components"))
+        {
+            foreach (GameObject obj in Selection.gameObjects)
+            {
+                if (obj.GetComponent<Disconnect>())
+                {
+                    DestroyImmediate(obj.GetComponent<Disconnect>());
+                    obj.GetComponent<Collider>().isTrigger = false;
+                    obj.layer = 0;
+                }
+                else
+                    Debug.LogError("Object " + Selection.activeGameObject + " does not have a Disconnect component!");
+            }
+        }
         GUILayout.Space(10); //unrelated
         GUILayout.Label("Objects", EditorStyles.largeLabel);
         GUILayout.TextArea("Find prefab at: " + Application.dataPath + "/Editor/JohnsTools/Prefabs");
         prefab1 = (GameObject)EditorGUILayout.ObjectField(prefab1, typeof(Object), true);
         if (GUILayout.Button("Create Cosmetic Stand"))
             MakeCosmeticStand(prefab1);
+        GUILayout.Space(5);
+        GUILayout.Label("Material");
+        material = (Material)EditorGUILayout.ObjectField(material, typeof(Material), true);
+        if (GUILayout.Button("Give Selected Objects a material"))
+        {
+            foreach (GameObject obj in Selection.gameObjects)
+            {
+                obj.GetComponent<Renderer>().material = material;
+            }
+        }
         GUILayout.Space(10);
         GUILayout.Label("Support me!", EditorStyles.largeLabel);
         GUILayout.Space(5);
@@ -193,14 +240,6 @@ public class JohnsWindow : EditorWindow {
         }
 
         GUILayout.EndScrollView();
-    }
-    public void ApplyMat(Renderer renderer, Object obj, Material mat)
-    {
-        renderer = obj.GetComponent<Renderer>(); //eh, ill use this later, probably
-        if (renderer)
-        {
-            renderer.material = mat;
-        }
     }
     public void MakeHitsound()
     {
