@@ -12,3 +12,8 @@ FEATURES
 -Remove Grabable Components
 -Create cosmetic stand
 -A info window with instructions
+
+# How to setup:
+Open the unity package into your project.
+# How to open
+The add-on is located in the tools and window menus.
