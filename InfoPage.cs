@@ -18,15 +18,12 @@ public class InfoPage : EditorWindow
         GUILayout.Space(15);
         GUILayout.Label("Make sure to setup the script as well");
         GUILayout.Space(5);
-        if (GUILayout.Button("Get the MonkeButton Script"))
-            Application.OpenURL("https://drive.google.com/file/d/1K9NqgC_qgKDEGIBfDrbIyuGAf8ytsgYN/view?usp=sharing");
-        GUILayout.Space(5);
-        if (GUILayout.Button("Get the modified BetterHitSounds script!"))
-            Application.OpenURL("https://drive.google.com/file/d/1YxIxJaIlMy-5ZcjNiZve1X0jcKGQb61l/view?usp=sharing");
+        if (GUILayout.Button("Get all the scripts!"))
+            Application.OpenURL("https://github.com/PineappleJohn/JohnsToolsDependencies");
         GUILayout.Space(5);
         GUILayout.Label("Credits to: Kevinboy160");
         if (GUILayout.Button("Get the grabable unity package!"))
-            Application.OpenURL("https://drive.google.com/file/d/1Pw8SRfJPXNDSq2EE0GLQ67uWU36pMkTH/view?usp=sharing");
+            Application.OpenURL("https://drive.google.com/file/d/1Pw8SRfJPXNDSq2EE0GLQ67uWU36pMkTH/view?usp=sharing"); //gonna start moving scripts to git hub
         GUILayout.Space(20);
         if (GUILayout.Button("Got it!"))
         {
