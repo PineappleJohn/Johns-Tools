@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using static BetterHitSounds;
 using System.Linq;
 using Photon.Pun;
+using UnityEngine.UIElements;
 
 public class JohnsWindow : EditorWindow {
 
@@ -24,7 +25,8 @@ public class JohnsWindow : EditorWindow {
     [MenuItem("Tools/John's Tools")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow<JohnsWindow>("John's Tools");
+        EditorWindow window = EditorWindow.GetWindow<JohnsWindow>("John's Tools");
+        window.minSize = new Vector2(360f, 400f);
     }
     //ty brackeys :)
     void OnGUI()
@@ -37,21 +39,16 @@ public class JohnsWindow : EditorWindow {
             var window = ScriptableObject.CreateInstance<InfoPage>();
             window.Show();
         }
-        GUILayout.Label("Non-walkable");
-        lm = EditorGUILayout.LayerField(lm);
+        lm = EditorGUILayout.LayerField("Non-walkable layer", lm);
         GUILayout.Space(10); //hitsounds
         GUILayout.Label("Easy Hitsounds (DEFAULT RIG)", EditorStyles.largeLabel);
         GUILayout.Space(5);
-        GUILayout.Label("Tag");
-        audioTag = EditorGUILayout.TagField(audioTag);
+        audioTag = EditorGUILayout.TagField("Tag", audioTag);
         GUILayout.Space(5);
-        GUILayout.Label("Right Hand Controller");
-        handR = EditorGUILayout.ObjectField(handR, typeof(Object), true);
-        GUILayout.Label("Left Hand Controller");
-        handL = EditorGUILayout.ObjectField(handL, typeof(Object), true);
+        handR = EditorGUILayout.ObjectField("Right Hand Controller", handR, typeof(Object), true);
+        handL = EditorGUILayout.ObjectField("Left Hand Controller", handL, typeof(Object), true);
         GUILayout.Space(5);
-        GUILayout.Label("Sound");
-        sound = (AudioClip)EditorGUILayout.ObjectField(sound, typeof(AudioClip), false); //thanks SisusCo on unity discussions
+        sound = (AudioClip)EditorGUILayout.ObjectField("Sound", sound, typeof(AudioClip), false); //thanks SisusCo on unity discussions
         if (GUILayout.Button("Make Hitsound"))
             MakeHitsound();
         GUILayout.Space(5);
@@ -208,12 +205,11 @@ public class JohnsWindow : EditorWindow {
         GUILayout.Space(10); //unrelated
         GUILayout.Label("Objects", EditorStyles.largeLabel);
         GUILayout.TextArea("Find prefab at: " + Application.dataPath + "/Editor/JohnsTools/Prefabs");
-        prefab1 = (GameObject)EditorGUILayout.ObjectField(prefab1, typeof(Object), true);
+        prefab1 = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab1, typeof(Object), true);
         if (GUILayout.Button("Create Cosmetic Stand"))
             MakeCosmeticStand(prefab1);
         GUILayout.Space(5);
-        GUILayout.Label("Material");
-        material = (Material)EditorGUILayout.ObjectField(material, typeof(Material), true);
+        material = (Material)EditorGUILayout.ObjectField("Material", material, typeof(Material), true);
         if (GUILayout.Button("Give Selected Objects a material"))
         {
             foreach (GameObject obj in Selection.gameObjects)
@@ -221,6 +217,11 @@ public class JohnsWindow : EditorWindow {
                 obj.GetComponent<Renderer>().material = material;
             }
         }
+        if (GUILayout.Button("Custom Color"))
+        {
+            var window = ScriptableObject.CreateInstance<SetColor>();
+            window.Show();
+        }    
         GUILayout.Space(10);
         GUILayout.Label("Support me!", EditorStyles.largeLabel);
         GUILayout.Space(5);
