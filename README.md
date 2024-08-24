@@ -15,6 +15,7 @@ An open source add-on for unity, made for Gorilla and Soft Chimp Locomotion. Mad
 -Make a Collider disconnect the player (Requires Photon) <br/>
 -Quickly apply materials to selected object <br/>
 -Quickly create a new material or copy a color from another object and apply it to the selected object <br/>
+-Networked hit sounds (Beta & Untested) <br/>
 
 # How to setup:
 Open the unity package into your project. <br/>
