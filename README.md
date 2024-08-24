@@ -1,5 +1,5 @@
-# Johns-Tools
-An open source add-on for unity, made for Gorilla and Soft Chimp Locomotion. Made for Unity 2022.3.2f1
+# Johns Tools
+*John's Tools* is an open source add-on for unity, made for Gorilla and Soft Chimp Locomotion. Made for Unity 2022.3.2f1
 
 # FEATURES:
 -Make default rig hitsound <br/>
