@@ -11,10 +11,8 @@ public class InfoPage : EditorWindow
         scrollPos = GUILayout.BeginScrollView(scrollPos, true, true);
         GUILayout.Label("Info", EditorStyles.largeLabel);
         GUILayout.Space(5);
-        GUILayout.TextArea("Make Hitsounds requires the BetterHitSounds script. " +
-            "Any quick scripts require you to have the object selected. " +
-            "Add MonkeButton requires Johns MonkeButton script. " +
-            "Making an object grabable requires a unity package attached below."); //readonly
+        GUILayout.TextArea("Please check the github or click the button below. I keep my code open sourced to help people learn, please don't use my code," +
+            " I spend a lot of time on it and stealing it without crediting me makes me sad :("); //readonly
         GUILayout.Space(15);
         GUILayout.Label("Make sure to setup the script as well");
         GUILayout.Space(5);

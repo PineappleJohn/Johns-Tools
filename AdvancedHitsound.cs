@@ -3,6 +3,7 @@ using UnityEditor;
 using Unity.VisualScripting;
 using System.Linq;
 using static HitSoundsv2;
+using Photon.Pun;
 
 public class AdvancedHitsound : EditorWindow
 {
@@ -12,6 +13,7 @@ public class AdvancedHitsound : EditorWindow
     }
     string soundTag;
     AudioClip sound;
+    bool networked;
     private GameObject handR;
     private GameObject handL;
 
@@ -22,15 +24,14 @@ public class AdvancedHitsound : EditorWindow
         scrollPos = GUILayout.BeginScrollView(scrollPos, true, true);
         GUILayout.Label("Make a Soft-Chimp Loco hitsound!", EditorStyles.largeLabel);
         GUILayout.Space(15);
-        GUILayout.Label("Tag for sound");
-        soundTag = EditorGUILayout.TagField(soundTag);
+        soundTag = EditorGUILayout.TagField("Tag for sound", soundTag);
+        GUILayout.Space(5);
+        networked = EditorGUILayout.Toggle("Networked (BETA, UNTESTED)", networked);
         GUILayout.Space(5);
         sound = (AudioClip)EditorGUILayout.ObjectField(sound, typeof(AudioClip), false);
         GUILayout.Space(5);
-        GUILayout.Label("Right Hand");
-        handR = (GameObject)EditorGUILayout.ObjectField(handR, typeof(GameObject), true);
-        GUILayout.Label("Left Hand");
-        handL = (GameObject)EditorGUILayout.ObjectField(handL, typeof(GameObject), true);
+        handR = (GameObject)EditorGUILayout.ObjectField("Right Hand", handR, typeof(GameObject), true);
+        handL = (GameObject)EditorGUILayout.ObjectField("Left Hand", handL, typeof(GameObject), true);
         GUILayout.Space(5);
         if (GUILayout.Button("Make Hitsound"))
         {
@@ -51,5 +52,12 @@ public class AdvancedHitsound : EditorWindow
         offlineL.audioData = offlineR.audioData;
         Selection.objects[0] = offlineR;
         Selection.objects[1] = offlineL;
+        if (networked)
+        {
+            offlineR.networked = true;
+            offlineR.pt = handR.AddComponent<PhotonView>();
+            offlineL.networked = true;
+            offlineL.pt = handL.AddComponent<PhotonView>();
+        }
     }
 }

@@ -32,8 +32,8 @@ public class JohnsWindow : EditorWindow {
     void OnGUI()
     {
         scrollPos = GUILayout.BeginScrollView(scrollPos, false, true);
-        GUILayout.Label("John's tools, V1.5", EditorStyles.largeLabel); //scrollbar broken :(
-        GUILayout.Label("Made by john; Don't skid please");
+        GUILayout.Label("John's tools, V3", EditorStyles.largeLabel); //scrollbar broken :(
+        GUILayout.Label("Made by john;");
         if (GUILayout.Button("Info"))
         {
             var window = ScriptableObject.CreateInstance<InfoPage>();
@@ -106,7 +106,7 @@ public class JohnsWindow : EditorWindow {
             }
         }
         GUILayout.Space(10);
-        slipTag = EditorGUILayout.TagField(slipTag);
+        slipTag = EditorGUILayout.TagField("Slippery tag", slipTag);
         if (GUILayout.Button("Make Object Slippery"))
         {
             PhysicMaterial physicMaterial = new PhysicMaterial("Slippery");
@@ -202,11 +202,23 @@ public class JohnsWindow : EditorWindow {
                     Debug.LogError("Object " + Selection.activeGameObject + " does not have a Disconnect component!");
             }
         }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Network selected object"))
+        {
+            var window = ScriptableObject.CreateInstance<NetworkObj>();
+            window.Show();
+        }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Make Objects climbable"))
+        {
+            var window = ScriptableObject.CreateInstance<ClimbableSet>();
+            window.Show();
+        }
+        GUILayout.Label("Requires V3 dependencies", EditorStyles.miniLabel);
         GUILayout.Space(10); //unrelated
         GUILayout.Label("Objects", EditorStyles.largeLabel);
-        GUILayout.TextArea("Find prefab at: " + Application.dataPath + "/Editor/JohnsTools/Prefabs");
         prefab1 = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab1, typeof(Object), true);
-        if (GUILayout.Button("Create Cosmetic Stand"))
+        if (GUILayout.Button("Create Prefab"))
             MakeCosmeticStand(prefab1);
         GUILayout.Space(5);
         material = (Material)EditorGUILayout.ObjectField("Material", material, typeof(Material), true);

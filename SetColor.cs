@@ -23,7 +23,7 @@ public class SetColor : EditorWindow
         GUILayout.Space(10);
         color = EditorGUILayout.ColorField(color);
         useMat = EditorGUILayout.Toggle("Copy color from material", useMat);
-        mat = (GameObject)EditorGUILayout.ObjectField(mat, typeof(GameObject), true);
+        mat = (GameObject)EditorGUILayout.ObjectField("Object", mat, typeof(GameObject), true);
         GUILayout.Space(5);
         if (GUILayout.Button("Set Color"))
             colorTheObject();
