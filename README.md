@@ -22,6 +22,3 @@ Open the unity package into your project. <br/>
 *It requires all the scripts in [Dependencies](https://github.com/PineappleJohn/JohnsToolsDependencies)*
 # How to open:
 The add-on is located in the tools and window menus.
-
-# Quick Nots
-I am going on vacation tmmr (As of Augest 24th) so no work will be done
